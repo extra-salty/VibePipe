@@ -15,7 +15,10 @@ void readLed(Request &req, Response &res) {
 }
 
 void updateLed(Request &req, Response &res) {
+  Serial.println(ledOn);
   ledOn = (req.read() != '0');
+  Serial.println(ledOn);
+
   digitalWrite(LED_BUILTIN, ledOn);
   return readLed(req, res);
 }

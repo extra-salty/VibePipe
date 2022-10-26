@@ -12,8 +12,8 @@ export const deviceSlice = createSlice({
   name: "device",
   initialState,
   reducers: {
-    setOnboardLed: (state, action: PayloadAction<string>) => {
-      state.onboardLed = action.payload === "0" ? false : true;
+    setOnboardLed: (state, action: PayloadAction<boolean>) => {
+      state.onboardLed = action.payload;
     },
   },
 });
