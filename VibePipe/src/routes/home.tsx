@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { StatusGrid } from "../features/device/status/statusGrid";
-import { ControlGrid } from "../features/color/control/controlGrid";
+import { ControlGrid } from "../features/color/hsv/hsvGrid";
 import { EffectGrid } from "../features/color/effect/effectGrid";
 import { LEDGrid } from "../features/color/led/ledGrid";
 import { SettingsButton } from "./settingsButton.style";

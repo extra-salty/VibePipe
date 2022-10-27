@@ -6,21 +6,6 @@ interface Props {
   lightness?: number;
 }
 
-const properties = `
-  -webkit-appearance: none;
-  height: 10px;
-  width: 300px;
-  margin: 10px 0;
-`;
-
-const webkitSLiderThumbProps = `
-  -webkit-appearance: none;
-  border: 1px solid #000000;
-  height: 15px;
-  width: 15px;
-  border-radius: 3px;
-`;
-
 export const HueSlider = styled.input.attrs<Props>(props => ({
   type: "range",
   max: 360,
@@ -37,16 +22,22 @@ export const HueSlider = styled.input.attrs<Props>(props => ({
     )`,
   },
 }))<Props>`
-  ${properties};
+  -webkit-appearance: none;
+  height: 10px;
+  width: 300px;
+  margin: 10px 0;
   &::-webkit-slider-thumb {
-    ${webkitSLiderThumbProps};
+    -webkit-appearance: none;
+    border: 1px solid #000000;
+    height: 15px;
+    width: 15px;
+    border-radius: 3px;
     background: ${props =>
-      `hsl(${props.hue} ${props.saturation}% ${props.value}%)`};
+      `hsl(${props.hue} ${props.saturation}% ${props.lightness}%)`};
   }
 `;
 
-export const SaturationSlider = styled.input.attrs<Props>(props => ({
-  type: "range",
+export const SaturationSlider = styled(HueSlider).attrs<Props>(props => ({
   max: 100,
   style: {
     background: `linear-gradient(
@@ -55,31 +46,16 @@ export const SaturationSlider = styled.input.attrs<Props>(props => ({
     hsl(${props.hue} 100% ${props.lightness}%)
     )`,
   },
-}))<Props>`
-  ${properties};
-  &::-webkit-slider-thumb {
-    ${webkitSLiderThumbProps};
-    background: ${props =>
-      `hsl(${props.hue} ${props.saturation}% ${props.value}%)`};
-  }
-`;
+}))``;
 
-export const LightnessSlider = styled.input.attrs<Props>(props => ({
-  type: "range",
+export const LightnessSlider = styled(HueSlider).attrs<Props>(props => ({
   max: 100,
   style: {
     background: `linear-gradient(
     to right,
     hsl(${props.hue} ${props.saturation}% 0%),
-    hsl(${props.hue} ${props.saturation}% 50%),
-    hsl(${props.hue} ${props.saturation}% 100%)
+    hsl(${props.hue} ${props.saturation}% 25%),
+    hsl(${props.hue} ${props.saturation}% 50%)
     )`,
   },
-}))<Props>`
-  ${properties};
-  &::-webkit-slider-thumb {
-    ${webkitSLiderThumbProps};
-    background: ${props =>
-      `hsl(${props.hue} ${props.saturation}% ${props.value}%)`};
-  }
-`;
+}))``;
