@@ -42,7 +42,8 @@ export const SaturationSlider = styled(HueSlider).attrs<Props>(props => ({
   style: {
     background: `linear-gradient(
     to right,
-    hsl(${props.hue} 0% ${props.lightness}%),
+    hsl(${props.hue} 0% 100%),
+    hsl(${props.hue} 50% ${props.lightness}%),
     hsl(${props.hue} 100% ${props.lightness}%)
     )`,
   },

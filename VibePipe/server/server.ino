@@ -14,21 +14,34 @@ Application app;
 bool ledOn;
 CRGB leds[NUM_LEDS];
 
-void readLed(Request &req, Response &res) {
-  res.print(ledOn);
+// Global HSV:
+void updateGlobalHSV(Request &req, Response &res) {
+  Serial.println(req.read());
+  // int hue = req.read().toInt();
+  fill_solid( leds, NUM_LEDS, CHSV(100,255,255));
+  FastLED.show(); 
 }
+// ------------------------------------------------
 
+
+// Onboard LED:
 void updateLed(Request &req, Response &res) {
   ledOn = (req.read() != '0');
   digitalWrite(LED_BUILTIN, ledOn);
   return readLed(req, res);
 }
 
+void readLed(Request &req, Response &res) {
+  res.print(ledOn);
+}
+// ------------------------------------------------
+
+
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
-  Serial.begin(512000);
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Serial.begin(115200);
 
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.print(".");
@@ -37,6 +50,8 @@ void setup() {
 
   app.get("/led", &readLed);
   app.put("/led", &updateLed);
+  app.put("/hsv", &updateGlobalHSV);
+
   app.use(staticFiles());
   server.begin();
 
@@ -50,9 +65,4 @@ void loop() {
     app.process(&client);
   }
 
-  leds[0] = CHSV( 0, 255, 0);
-  leds[1] = CHSV( 0, 255, 100);
-  leds[2] = CHSV( 0, 255, 200);
-  FastLED.show(); 
-  delay(30); 
 }

@@ -16,7 +16,9 @@ type InitialState = {
 };
 
 const initialState: InitialState = {
-  globalHSL: { hue: 0, saturation: 100, lightness: 100 },
+  hue: 0,
+  saturation: 100,
+  lightness: 100,
   brightness: 0,
   effectGrid: initialEffectGrid,
   ledGrid: initialLedGrid,

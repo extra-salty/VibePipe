@@ -4,11 +4,17 @@ import { HueSlider, SaturationSlider, LightnessSlider } from "./sliders.style";
 import { Control, HueControl } from "./control.style";
 import { setHue, setSaturation, setLightness } from "../colorSlice";
 
-export const ControlGrid = () => {
+export const HsvGrid = () => {
   const { hue, saturation, lightness } = useAppSelector(state => state.color);
-  // const saturation = useAppSelector(state => state.color.saturation);
-  // const lightness = useAppSelector(state => state.color.lightness);
   const dispatch = useAppDispatch();
+
+  const updateGlobalHSV = (hue: string) => {
+    dispatch(setHue(hue));
+
+    fetch("/hsv", { method: "PUT", body: hue })
+      .then(response => response.text())
+      .catch(error => console.log("Error: ", error));
+  };
 
   return (
     <>
@@ -18,9 +24,12 @@ export const ControlGrid = () => {
         hue={hue}
         saturation={saturation}
         lightness={lightness}
+        onChange={e => updateGlobalHSV(e.target.value)}
+      />
+      <HueControl
+        value={hue}
         onChange={e => dispatch(setHue(e.target.value))}
       />
-      <Control value={hue} onChange={e => dispatch(setHue(e.target.value))} />
       <SaturationIcon />
       <SaturationSlider
         value={saturation}
