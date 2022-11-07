@@ -1,5 +1,5 @@
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { OnboardLED } from "./onboardLedButton.style";
 import { setOnboardLed } from "../deviceSlice";
 
@@ -18,12 +18,12 @@ export const StatusGrid = () => {
       .catch(error => console.log("Error: ", error));
   };
 
-  useEffect(() => {
-    fetch("/led")
-      .then(response => response.text())
-      .then(state => setOnboardLedState(state))
-      .catch(error => console.log("Error: ", error));
-  });
+  // useEffect(() => {
+  //   fetch("/led")
+  //     .then(response => response.text())
+  //     .then(state => setOnboardLedState(state))
+  //     .catch(error => console.log("Error: ", error));
+  // });
 
   return (
     <>

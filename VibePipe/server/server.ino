@@ -16,10 +16,10 @@ CRGB leds[NUM_LEDS];
 
 // Global HSV:
 void updateGlobalHSV(Request &req, Response &res) {
-  Serial.println(req.read());
   // int hue = req.read().toInt();
-  fill_solid( leds, NUM_LEDS, CHSV(100,255,255));
-  FastLED.show(); 
+  // fill_solid( leds, NUM_LEDS, CHSV(0,255,100));
+  // FastLED.show();
+
 }
 // ------------------------------------------------
 
@@ -43,10 +43,11 @@ void setup() {
 
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
+    delay(500);
     Serial.print(".");
   }
   Serial.println(WiFi.localIP());
+
 
   app.get("/led", &readLed);
   app.put("/led", &updateLed);
@@ -64,5 +65,4 @@ void loop() {
   if (client.connected()) {
     app.process(&client);
   }
-
 }
